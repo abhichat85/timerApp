@@ -9,7 +9,7 @@ const menuItems = [
       { name: 'Alarm', component: 'Alarm', icon: <Bell size={16} /> },
       { name: 'Timer', component: 'Timer', icon: <Timer size={16} /> },
       { name: 'Stopwatch', component: 'Stopwatch', icon: <Watch size={16} /> },
-      { name: 'World Clock', component: 'WorldClock', icon: <World size={16} /> },
+      // { name: 'World Clock', component: 'WorldClock', icon: <World size={16} /> },
       { name: 'Clock', component: 'Clock', icon: <Clock size={16} /> },
     ]
   },
