@@ -9,7 +9,7 @@ import Alarm from '../components/Alarm'
 import DateWeatherLocation from '../components/DateWeatherLocation'
 import SideMenu from '../components/SideMenu'
 import Navbar from '../components/Navbar'
-import { useUser, SignedOut, SignedIn, UserButton } from "@clerk/nextjs"
+import { useUser, SignedOut, SignedIn } from "@clerk/nextjs"
 
 const Clock = dynamic(() => import('../components/Clock'), { ssr: false })
 
@@ -73,7 +73,10 @@ export default function Home() {
       </Head>
 
       <SignedIn>
-        <Navbar isMenuCollapsed={isMenuCollapsed} />
+        <Navbar 
+          isMenuCollapsed={isMenuCollapsed}
+          setActiveComponent={setActiveComponent}
+        />
         <SideMenu 
           isCollapsed={isMenuCollapsed}
           setIsCollapsed={setIsMenuCollapsed}
@@ -82,9 +85,6 @@ export default function Home() {
 
         <div className={`main-content ${isMenuCollapsed ? 'ml-16' : 'ml-64'} mt-16`}>
           <main className="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
-            <div className="flex justify-end mb-4">
-              <UserButton />
-            </div>
             {activeComponent ? (
               renderComponent(activeComponent)
             ) : (

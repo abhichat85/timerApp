@@ -9,7 +9,6 @@ const menuItems = [
       { name: 'Alarm', component: 'Alarm', icon: <Bell size={16} /> },
       { name: 'Timer', component: 'Timer', icon: <Timer size={16} /> },
       { name: 'Stopwatch', component: 'Stopwatch', icon: <Watch size={16} /> },
-      // { name: 'World Clock', component: 'WorldClock', icon: <World size={16} /> },
       { name: 'Clock', component: 'Clock', icon: <Clock size={16} /> },
     ]
   },
@@ -55,37 +54,40 @@ export default function SideMenu({ isCollapsed, setIsCollapsed, setActiveCompone
   };
 
   return (
-    <div className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'}`}>
-      <div className="h-full neomorphic-menu overflow-y-auto bg-neutral-100 dark:bg-neutral-800">
-        <button
-          className="absolute top-4 right-4 p-2 neomorphic-button text-neutral-700 dark:text-neutral-200"
-          onClick={() => setIsCollapsed(!isCollapsed)}
-        >
-          {isCollapsed ? <Menu size={24} /> : <X size={24} />}
-        </button>
-        <nav className="mt-16 p-4">
+    <div className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'} bg-gray-900 text-white`}>
+      <div className="h-full overflow-y-auto">
+        <div className="flex items-center justify-between p-4 border-b border-gray-700">
+          {!isCollapsed && <span className="text-xl font-semibold">Timer App</span>}
+          <button
+            className="p-2 rounded-md hover:bg-gray-700 transition-colors duration-200"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+          >
+            {isCollapsed ? <Menu size={24} /> : <X size={24} />}
+          </button>
+        </div>
+        <nav className="mt-4">
           {menuItems.map((item, index) => (
-            <div key={index} className="mb-4">
+            <div key={index} className="mb-2">
               <button
-                className={`w-full text-left flex items-center justify-between p-2 ${isCollapsed ? 'px-2' : ''} neomorphic-button text-neutral-700 dark:text-neutral-200`}
+                className={`w-full text-left flex items-center justify-between p-3 hover:bg-gray-700 transition-colors duration-200 ${isCollapsed ? 'px-2' : ''}`}
                 onClick={() => !isCollapsed && toggleSubMenu(index)}
               >
                 <span className="flex items-center">
                   {item.icon}
-                  {!isCollapsed && <span className="ml-2">{item.title}</span>}
+                  {!isCollapsed && <span className="ml-3">{item.title}</span>}
                 </span>
                 {!isCollapsed && (openSubMenus[index] ? <ChevronUp size={16} /> : <ChevronDown size={16} />)}
               </button>
               {!isCollapsed && openSubMenus[index] && (
-                <ul className="ml-4 mt-2 space-y-2">
+                <ul className="bg-gray-800 py-2">
                   {item.subItems.map((subItem, subIndex) => (
-                    <li key={subIndex} className="text-sm">
+                    <li key={subIndex}>
                       <button 
-                        className="w-full text-left pl-6 p-2 neomorphic-button-inset flex items-center text-neutral-600 dark:text-neutral-300"
+                        className="w-full text-left pl-10 pr-4 py-2 hover:bg-gray-700 transition-colors duration-200 flex items-center"
                         onClick={() => setActiveComponent(subItem.component)}
                       >
                         {subItem.icon}
-                        <span className="ml-2">{subItem.name}</span>
+                        <span className="ml-3 text-sm">{subItem.name}</span>
                       </button>
                     </li>
                   ))}
@@ -97,53 +99,4 @@ export default function SideMenu({ isCollapsed, setIsCollapsed, setActiveCompone
       </div>
     </div>
   );
-}
-
-const styles = `
-  .neomorphic-menu {
-    box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5), 5px 5px 10px rgba(0, 0, 0, 0.05);
-  }
-  .neomorphic-button {
-    background: linear-gradient(145deg, #f5f5f5, #e6e6e6);
-    box-shadow: 3px 3px 6px #d1d1d1, -3px -3px 6px #ffffff;
-    border: none;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-  }
-  .neomorphic-button:hover {
-    box-shadow: inset 3px 3px 6px #d1d1d1, inset -3px -3px 6px #ffffff;
-  }
-  .neomorphic-button-inset {
-    background: linear-gradient(145deg, #e6e6e6, #f5f5f5);
-    box-shadow: inset 3px 3px 6px #d1d1d1, inset -3px -3px 6px #ffffff;
-    border: none;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-  }
-  .neomorphic-button-inset:hover {
-    box-shadow: 3px 3px 6px #d1d1d1, -3px -3px 6px #ffffff;
-  }
-  .dark .neomorphic-menu {
-    box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.05), 5px 5px 10px rgba(0, 0, 0, 0.3);
-  }
-  .dark .neomorphic-button {
-    background: linear-gradient(145deg, #3d3d3d, #333333);
-    box-shadow: 3px 3px 6px #2a2a2a, -3px -3px 6px #464646;
-  }
-  .dark .neomorphic-button:hover {
-    box-shadow: inset 3px 3px 6px #2a2a2a, inset -3px -3px 6px #464646;
-  }
-  .dark .neomorphic-button-inset {
-    background: linear-gradient(145deg, #333333, #3d3d3d);
-    box-shadow: inset 3px 3px 6px #2a2a2a, inset -3px -3px 6px #464646;
-  }
-  .dark .neomorphic-button-inset:hover {
-    box-shadow: 3px 3px 6px #2a2a2a, -3px -3px 6px #464646;
-  }
-`;
-
-if (typeof document !== 'undefined') {
-  const styleElement = document.createElement('style');
-  styleElement.innerHTML = styles;
-  document.head.appendChild(styleElement);
 }
