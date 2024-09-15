@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/switch"
 import { Bell, BellOff, Repeat, Clock, Plus, Volume2 } from 'lucide-react'
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-const ALARM_SOUNDS = ['default', 'gentle', 'urgent', 'bells', 'digital']
+const ALARM_SOUNDS = ['default', 'gentle', 'urgent', 'bells', 'digital', 'alarm']
 
 export default function Alarm() {
   const [alarms, setAlarms] = useState([])
